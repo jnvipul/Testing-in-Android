@@ -7,14 +7,18 @@ package com.example.vj.samplemvpandroid.login;
 public class LoginPresenter {
 
     private ILoginView view;
+    private SyncronusLoginModel model;
 
     public LoginPresenter(ILoginView view) {
         this.view = view;
+        this.model = new SyncronusLoginModel();
     }
 
     public void attemptLogin(String username, String password) {
-
-        // TODO Check credentials
-        view.loginSuccessful();
+        if (model.validateCredentials(username, password)) {
+            view.loginSuccessful();
+        } else {
+            view.loginFailed();
+        }
     }
 }
