@@ -1,5 +1,6 @@
 package com.example.vj.samplemvpandroid.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void loginSuccessful() {
         showToast(getString(R.string.login_successful));
+        startActivity(new Intent(this, ListActivity.class));
     }
 
     @OnClick(R.id.login_button)
