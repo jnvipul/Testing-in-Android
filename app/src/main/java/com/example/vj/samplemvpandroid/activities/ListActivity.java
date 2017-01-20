@@ -3,6 +3,8 @@ package com.example.vj.samplemvpandroid.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.vj.samplemvpandroid.list.IListActivityView;
@@ -18,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
-public class ListActivity extends AppCompatActivity implements IListActivityView {
+public class ListActivity extends BaseActivity implements IListActivityView, AdapterView.OnItemClickListener {
 
     @BindView(R.id.list)
     ListView listView;
@@ -43,10 +45,17 @@ public class ListActivity extends AppCompatActivity implements IListActivityView
     public void onRepositoryLoadSuccess(List<Repository> list) {
         Log.v("Repository Load", new Gson().toJson(list));
         listView.setAdapter(new RepositoryListAdapter(list, this));
+        listView.setOnItemClickListener(this);
     }
 
     @Override
     public void onRepositoryLoadFailure(Throwable error) {
         Log.v("Repository Load Failed", error.getMessage());
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Repository repository = (Repository)adapterView.getAdapter().getItem(i);
+        showToast(repository.getName());
     }
 }

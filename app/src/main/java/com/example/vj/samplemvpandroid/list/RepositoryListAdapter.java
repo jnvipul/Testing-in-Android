@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by vJ on 1/20/17.
  */
 
-public class RepositoryListAdapter extends BaseAdapter {
+public class RepositoryListAdapter extends BaseAdapter{
 
     private List<Repository> list;
     private Context context;
