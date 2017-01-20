@@ -8,12 +8,14 @@ import android.widget.ListView;
 import com.example.vj.samplemvpandroid.list.IListActivityView;
 import com.example.vj.samplemvpandroid.R;
 import com.example.vj.samplemvpandroid.list.ListPresenter;
+import com.example.vj.samplemvpandroid.list.RepositoryListAdapter;
 import com.example.vj.samplemvpandroid.model.Repository;
 import com.google.gson.Gson;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 
 public class ListActivity extends AppCompatActivity implements IListActivityView {
@@ -32,6 +34,7 @@ public class ListActivity extends AppCompatActivity implements IListActivityView
     }
 
     private void setup() {
+        ButterKnife.bind(this);
         presenter = new ListPresenter(this);
         presenter.loadRepositories();
     }
@@ -39,6 +42,7 @@ public class ListActivity extends AppCompatActivity implements IListActivityView
     @Override
     public void onRepositoryLoadSuccess(List<Repository> list) {
         Log.v("Repository Load", new Gson().toJson(list));
+        listView.setAdapter(new RepositoryListAdapter(list, this));
     }
 
     @Override
