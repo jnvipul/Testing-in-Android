@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
  * Created by vJ on 1/19/17.
  */
 
-public class ListPresenter implements IListPresenter, IRepositoryLoadFinishListener {
+public class ListPresenter implements IRepositoryLoadFinishListener {
     IListActivityView view;
     ListModel model;
 
@@ -19,7 +19,6 @@ public class ListPresenter implements IListPresenter, IRepositoryLoadFinishListe
         this.model = new ListModel(this);
     }
 
-    @Override
     public void loadRepositories() {
         model.getRepositories();
     }
