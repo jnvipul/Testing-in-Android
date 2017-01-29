@@ -1,5 +1,6 @@
 package com.example.vj.samplemvpandroid.list;
 
+import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.model.Repository;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class ListPresenter implements IRepositoryLoadFinishListener {
 
     public ListPresenter(IListActivityView view) {
         this.view = view;
-        this.model = new ListModel(this);
+        this.model = new ListModel(this, view.getApplicationState().getGithubService());
     }
 
     public void loadRepositories() {
-        model.getRepositories();
+        model.getRepositories("mevipul");
     }
 
     @Override

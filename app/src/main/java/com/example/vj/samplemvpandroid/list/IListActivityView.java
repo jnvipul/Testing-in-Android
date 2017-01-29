@@ -1,5 +1,6 @@
 package com.example.vj.samplemvpandroid.list;
 
+import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.model.Repository;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface IListActivityView {
     void onRepositoryLoadSuccess(List<Repository> list);
 
     void onRepositoryLoadFailure(Throwable error);
+
+    ApplicationState getApplicationState();
 }

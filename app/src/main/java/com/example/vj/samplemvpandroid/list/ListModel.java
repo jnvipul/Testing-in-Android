@@ -19,27 +19,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ListModel implements Callback<List<Repository>> {
 
+    GithubService githubService;
+
     private final IRepositoryLoadFinishListener listener;
 
-    public ListModel(IRepositoryLoadFinishListener listener) {
-     this.listener = listener;
+    public ListModel(IRepositoryLoadFinishListener listener, GithubService githubService) {
+        this.listener = listener;
+        this.githubService = githubService;
     }
 
-    public Retrofit getRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit;
-    }
-
-    public GithubService getGithubService() {
-        return getRetrofit().create(GithubService.class);
-    }
-
-    public void getRepositories() {
+    public void getRepositories(String username) {
         try {
-             getGithubService().listRepos("mevipul").enqueue(this);
+            githubService.listRepos(username).enqueue(this);
         } catch (Exception e) {
             e.printStackTrace();
         }

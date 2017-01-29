@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.list.IListActivityView;
 import com.example.vj.samplemvpandroid.R;
 import com.example.vj.samplemvpandroid.list.ListPresenter;
@@ -51,6 +52,11 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
     @Override
     public void onRepositoryLoadFailure(Throwable error) {
         Log.v("Repository Load Failed", error.getMessage());
+    }
+
+    @Override
+    public ApplicationState getApplicationState() {
+        return getApplicationState();
     }
 
     @Override

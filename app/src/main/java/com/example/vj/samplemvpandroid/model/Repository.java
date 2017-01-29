@@ -9,4 +9,8 @@ public class Repository {
     public String getName() {
         return name;
     }
+
+    public Repository(String name) {
+        this.name = name;
+    }
 }
