@@ -1,24 +1,26 @@
 package com.example.vj.samplemvpandroid.login;
 
+import com.example.vj.samplemvpandroid.base.BasePresenter;
+
 /**
  * Created by vJ on 1/18/17.
  */
 
-public class LoginPresenter{
+public class LoginPresenter extends BasePresenter<ILoginView>{
 
-    private ILoginView view;
     private SyncronusLoginModel model;
 
-    public LoginPresenter(ILoginView view) {
-        this.view = view;
-        this.model = new SyncronusLoginModel();
+    public LoginPresenter(SyncronusLoginModel model) {
+        this.model = model;
     }
 
     public void attemptLogin(String username, String password) {
+        getView().showProgressBar();
         if (model.validateCredentials(username, password)) {
-            view.loginSuccessful();
+            getView().loginSuccessful();
         } else {
-            view.loginFailed();
+            getView().loginFailed();
         }
+        getView().hideProgressBar();
     }
 }

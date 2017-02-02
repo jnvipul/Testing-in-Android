@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.vj.samplemvpandroid.R;
 import com.example.vj.samplemvpandroid.login.ILoginView;
 import com.example.vj.samplemvpandroid.login.LoginPresenter;
+import com.example.vj.samplemvpandroid.login.SyncronusLoginModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +23,9 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @BindView(R.id.passwordET)
     EditText passwordET;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressbar;
+
     LoginPresenter presenter;
 
     @Override
@@ -32,7 +37,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     private void setup() {
-        presenter = new LoginPresenter(this);
+        presenter = new LoginPresenter(new SyncronusLoginModel());
+        presenter.attachView(this);
     }
 
     @Override
@@ -44,6 +50,16 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     public void loginSuccessful() {
         showToast(getString(R.string.login_successful));
         startActivity(new Intent(this, ListActivity.class));
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressbar.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.login_button)
