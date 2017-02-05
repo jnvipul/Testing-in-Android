@@ -36,13 +36,8 @@ public class ListModelTest {
     GithubService githubService;
 
     @Mock
-    IRepositoryLoadFinishListener listener;
-
-    @Mock
     Call<List<Repository>> call;
 
-    @Captor
-    private ArgumentCaptor<Callback<List<Repository>>> callBack;
 
     ListModel model;
 
@@ -51,14 +46,12 @@ public class ListModelTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        model = new ListModel(listener, githubService);
-        when(githubService.listRepos(username)).thenReturn(call);
+        model = new ListModel(githubService);
     }
 
     @Test
     public void getRepositories_calls(){
         model.getRepositories(username);
         verify(githubService).listRepos(username);
-        verify(call).enqueue(callBack.capture());
     }
 }
