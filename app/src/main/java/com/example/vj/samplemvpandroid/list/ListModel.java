@@ -13,36 +13,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by vJ on 1/19/17.
  */
-public class ListModel implements Callback<List<Repository>> {
+public class ListModel {
 
     GithubService githubService;
 
-    private final IRepositoryLoadFinishListener listener;
-
-    public ListModel(IRepositoryLoadFinishListener listener, GithubService githubService) {
-        this.listener = listener;
+    public ListModel(GithubService githubService) {
         this.githubService = githubService;
     }
 
-    public void getRepositories(String username) {
+    public Observable<List<Repository>> getRepositories(String username) {
         try {
-            githubService.listRepos(username).enqueue(this);
+            return githubService.listRepos(username);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
-        listener.onNetworkSuccess(response.body());
-    }
-
-    @Override
-    public void onFailure(Call<List<Repository>> call, Throwable t) {
-        listener.onNetworkFailure(t);
+        return null;
     }
 }

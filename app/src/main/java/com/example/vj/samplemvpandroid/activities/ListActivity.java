@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.list.IListActivityView;
@@ -25,6 +26,9 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
 
     @BindView(R.id.list)
     ListView listView;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressbar;
 
     ListPresenter presenter;
 
@@ -52,6 +56,16 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
     @Override
     public void onRepositoryLoadFailure(Throwable error) {
         Log.v("Repository Load Failed", error.getMessage());
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressbar.setVisibility(View.GONE);
     }
 
     @Override

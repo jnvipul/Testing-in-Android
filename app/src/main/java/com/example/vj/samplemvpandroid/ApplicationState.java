@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.vj.samplemvpandroid.retrofit_services.GithubService;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -28,6 +29,7 @@ public class ApplicationState extends Application {
     private Retrofit getRetrofit() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl("https://api.github.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

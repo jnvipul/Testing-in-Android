@@ -16,4 +16,10 @@ public interface IListActivityView {
     void onRepositoryLoadSuccess(List<Repository> list);
 
     void onRepositoryLoadFailure(Throwable error);
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
+
 }
