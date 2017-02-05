@@ -2,6 +2,7 @@ package com.example.vj.samplemvpandroid.list;
 
 import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.model.Repository;
+import com.example.vj.samplemvpandroid.retrofit_services.GithubService;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class ListPresenter implements IRepositoryLoadFinishListener {
     IListActivityView view;
     ListModel model;
 
-    public ListPresenter(IListActivityView view) {
+    public ListPresenter(IListActivityView view, GithubService githubService) {
         this.view = view;
-        this.model = new ListModel(this, view.getApplicationState().getGithubService());
+        this.model = new ListModel(this, githubService);
     }
 
     public void loadRepositories() {

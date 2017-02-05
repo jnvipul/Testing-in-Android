@@ -38,7 +38,7 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
 
     private void setup() {
         ButterKnife.bind(this);
-        presenter = new ListPresenter(this);
+        presenter = new ListPresenter(this, ((ApplicationState) getApplication()).getGithubService());
         presenter.loadRepositories();
     }
 
@@ -55,13 +55,8 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
     }
 
     @Override
-    public ApplicationState getApplicationState() {
-        return getApplicationState();
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Repository repository = (Repository)adapterView.getAdapter().getItem(i);
+        Repository repository = (Repository) adapterView.getAdapter().getItem(i);
         showToast(repository.getName());
     }
 }
