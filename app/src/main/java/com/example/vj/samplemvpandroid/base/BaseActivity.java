@@ -1,4 +1,4 @@
-package com.example.vj.samplemvpandroid.activities;
+package com.example.vj.samplemvpandroid.base;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

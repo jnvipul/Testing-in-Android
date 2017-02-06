@@ -1,5 +1,8 @@
 package com.example.vj.samplemvpandroid.base;
 
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
+
 /**
  * Created by vJ on 2/2/17.
  */
@@ -7,6 +10,7 @@ package com.example.vj.samplemvpandroid.base;
 public class BasePresenter<T extends IMvpView> implements IMvpPresenter<T> {
 
     private T view;
+    private CompositeSubscription subscriptions = new CompositeSubscription();
 
     @Override
     public void attachView(T view){
@@ -16,6 +20,7 @@ public class BasePresenter<T extends IMvpView> implements IMvpPresenter<T> {
     @Override
     public void detachView(){
         this.view = null;
+        subscriptions.clear();
     }
 
     @Override
@@ -26,6 +31,10 @@ public class BasePresenter<T extends IMvpView> implements IMvpPresenter<T> {
     @Override
     public T getView(){
         return view;
+    }
+
+    public void addSubscription(Subscription subscription) {
+        this.subscriptions.add(subscription);
     }
 
     public ViewNotAttachedException checkViewAttached(){

@@ -1,4 +1,4 @@
-package com.example.vj.samplemvpandroid.activities;
+package com.example.vj.samplemvpandroid.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.example.vj.samplemvpandroid.R;
-import com.example.vj.samplemvpandroid.login.ILoginView;
-import com.example.vj.samplemvpandroid.login.LoginPresenter;
-import com.example.vj.samplemvpandroid.login.SyncronusLoginModel;
+import com.example.vj.samplemvpandroid.base.BaseActivity;
+import com.example.vj.samplemvpandroid.list.ListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

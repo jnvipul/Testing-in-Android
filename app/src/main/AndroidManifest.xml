@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:name=".ApplicationState"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BaseActivity" />
-        <activity android:name=".activities.ListActivity"></activity>
+        <activity android:name=".base.BaseActivity" />
+        <activity android:name=".list.ListActivity"></activity>
     </application>
 
 </manifest>

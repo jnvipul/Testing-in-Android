@@ -1,6 +1,5 @@
-package com.example.vj.samplemvpandroid.activities;
+package com.example.vj.samplemvpandroid.list;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,10 +8,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.vj.samplemvpandroid.ApplicationState;
-import com.example.vj.samplemvpandroid.list.IListActivityView;
+import com.example.vj.samplemvpandroid.base.BaseActivity;
 import com.example.vj.samplemvpandroid.R;
-import com.example.vj.samplemvpandroid.list.ListPresenter;
-import com.example.vj.samplemvpandroid.list.RepositoryListAdapter;
 import com.example.vj.samplemvpandroid.model.Repository;
 import com.google.gson.Gson;
 
@@ -20,7 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
 
 public class ListActivity extends BaseActivity implements IListActivityView, AdapterView.OnItemClickListener {
 
@@ -43,6 +39,7 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
     private void setup() {
         ButterKnife.bind(this);
         presenter = new ListPresenter(this, ((ApplicationState) getApplication()).getGithubService());
+        presenter.attachView(this);
         presenter.loadRepositories();
     }
 
@@ -66,6 +63,12 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
     @Override
     public void hideProgressBar() {
         progressbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.detachView();
     }
 
     @Override
