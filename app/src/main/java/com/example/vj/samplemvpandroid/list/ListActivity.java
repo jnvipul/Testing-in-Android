@@ -11,12 +11,16 @@ import com.example.vj.samplemvpandroid.ApplicationState;
 import com.example.vj.samplemvpandroid.base.BaseActivity;
 import com.example.vj.samplemvpandroid.R;
 import com.example.vj.samplemvpandroid.model.Repository;
+import com.example.vj.samplemvpandroid.utility.ServiceGenerator;
 import com.google.gson.Gson;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Retrofit;
 
 public class ListActivity extends BaseActivity implements IListActivityView, AdapterView.OnItemClickListener {
 
@@ -28,6 +32,9 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
 
     ListPresenter presenter;
 
+    @Inject
+    Retrofit retrofit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +45,11 @@ public class ListActivity extends BaseActivity implements IListActivityView, Ada
 
     private void setup() {
         ButterKnife.bind(this);
-        presenter = new ListPresenter(this, ((ApplicationState) getApplication()).getGithubService());
+
+        // Dagger
+        ((ApplicationState) getApplication()).getApplicationComponent().inject(this);
+
+        presenter = new ListPresenter(this, ServiceGenerator.getGithubService(retrofit));
         presenter.attachView(this);
         presenter.loadRepositories();
     }

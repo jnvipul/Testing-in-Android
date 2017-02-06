@@ -16,6 +16,8 @@ public class ApplicationState extends Application {
 
     private Retrofit retrofit;
 
+    private ApplicationComponent applicationComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,21 +25,13 @@ public class ApplicationState extends Application {
     }
 
     private void setup() {
-
+        // create ApplicationComponent
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
-    private Retrofit getRetrofit() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .baseUrl("https://api.github.com/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-
-    public GithubService getGithubService() {
-        return getRetrofit().create(GithubService.class);
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 }
