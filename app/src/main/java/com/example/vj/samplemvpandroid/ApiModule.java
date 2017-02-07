@@ -1,7 +1,5 @@
 package com.example.vj.samplemvpandroid;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -17,18 +15,16 @@ import static com.example.vj.samplemvpandroid.constants.Urls.BASE_URL;
  */
 
 @Module
-public class ApplicationModule {
-
-    private final Context context;
-
-    public ApplicationModule(Context context) {
-        this.context = context;
-    }
+public class ApiModule {
 
     @Provides
     @Singleton
-    public Context providesContext() {
-        return context;
+    public Retrofit providesRetrofit() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        return retrofit;
     }
-
 }
